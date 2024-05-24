@@ -15,7 +15,7 @@ app.use(express.urlencoded({extended: false}));
 
 // Apply CORS middleware with allowed origin
 app.use(cors({
-  origin: 'https://taskmanager0.vercel.app' // Allow requests from React app's origin
+  origin: 'https://react-app-psi-wheat.vercel.app/' // Allow requests from React app's origin
 }));
 
 
