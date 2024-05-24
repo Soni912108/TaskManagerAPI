@@ -12,10 +12,12 @@ const cors = require('cors'); // Install cors middleware
 // middleware
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
+
 // Apply CORS middleware with allowed origin
 app.use(cors({
-  origin: 'http://localhost:3000' // Allow requests from React app's origin
+  origin: 'https://taskmanager0.vercel.app' // Allow requests from React app's origin
 }));
+
 
 // routes
 app.use("/api/tasks", taskRoute);
@@ -26,7 +28,7 @@ app.use("/api/users/", usersRoute);
 
 // simple route
 app.get("/", (req, res) => {
-  res.send("Hello from Node API Server Updated");
+  res.send("Hello from Node API Server--expressApp");
 });
 
 
