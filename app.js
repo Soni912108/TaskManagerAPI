@@ -20,10 +20,10 @@ app.use(cors({
 
 
 // routes
-app.use("/api/tasks", taskRoute);
+app.use("https://express-app-pied.vercel.app/api/tasks", taskRoute);
 
 // routes
-app.use("/api/users/", usersRoute);
+app.use("https://express-app-pied.vercel.app/api/users/", usersRoute);
 
 
 // simple route
