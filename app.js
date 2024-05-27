@@ -3,38 +3,36 @@ const mongoose = require("mongoose");
 const taskRoute = require("./routes/task.route.js");
 const usersRoute = require("./routes/users.route.js");
 const app = express();
-require('dotenv').config(); // Loading environment variables from .env file
-const cors = require('cors'); // Install cors middleware
-
-
-
-// middleware
-app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+require('dotenv').config();
+const cors = require('cors');
 
 // Apply CORS middleware with allowed origin
 app.use(cors({
-  origin: 'https://react-app-psi-wheat.vercel.app/' // Allow requests from React app's origin
+  origin: 'https://react-app-psi-wheat.vercel.app', // Ensure this is the correct origin
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  preflightContinue: false,
+  optionsSuccessStatus: 204
 }));
 
+app.options('*', cors()); // Enable pre-flight for all routes
+
+// middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 // routes
 app.use("/api/tasks", taskRoute);
-
-// routes
-app.use("/api/users/", usersRoute);
-
+app.use("/api/users", usersRoute);
 
 // simple route
 app.get("/", (req, res) => {
-  res.send("Hello from Node API Server--expressApp!");
+  res.send("Hello from Node API Server--expressApp!!");
 });
 
+const password = process.env.PASSWORD;
+const encodedPassword = encodeURIComponent(password);
 
-const password = process.env.PASSWORD; // Access password from environment variables
-const encodedPassword = encodeURIComponent(password); // encoding for string error handling on the str_conn in mongoose.connect
-
-// connecting to DB than running the server.
+// connecting to DB then running the server.
 mongoose
   .connect(
     `mongodb+srv://sonimailfortestuse:${encodedPassword}@backenddb.yf5ipol.mongodb.net/?retryWrites=true&w=majority&appName=BackendDB`
@@ -46,7 +44,4 @@ mongoose
     console.log("Connection failed!");
   });
 
-
 module.exports = app;
-
-
