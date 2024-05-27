@@ -20,15 +20,15 @@ app.use(cors({
 
 
 // routes
-app.use("https://express-app-pied.vercel.app/api/tasks", taskRoute);
+app.use("/api/tasks", taskRoute);
 
 // routes
-app.use("https://express-app-pied.vercel.app/api/users/", usersRoute);
+app.use("/api/users/", usersRoute);
 
 
 // simple route
 app.get("/", (req, res) => {
-  res.send("Hello from Node API Server--expressApp");
+  res.send("Hello from Node API Server--expressApp!");
 });
 
 
