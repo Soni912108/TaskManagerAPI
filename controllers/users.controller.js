@@ -2,9 +2,7 @@ const { Users } = require("../models/users.model.js");
 const jwt = require('jsonwebtoken'); // Import the jsonwebtoken library
 require('dotenv').config();
 const bcrypt = require('bcrypt'); // Import bcrypt library
-
 const jwtSecret = process.env.JWT_SECRET;
-
 
 
 const Register = async (req, res) => {
