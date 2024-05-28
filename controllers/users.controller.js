@@ -33,7 +33,7 @@ const Register = async (req, res) => {
     const user = await Users.create({ username, email, password: hashedPassword });
     // Generate a JWT token with user ID and other relevant data (unchanged)
     const token = jwt.sign({ _id: user._id }, jwtSecret, { expiresIn: '1h' });
-    res.status(201).json({ success: true, token });
+    res.status(200).json({ success: true, token: token ,userId: user._id  });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -65,7 +65,7 @@ const Login = async (req, res) => {
 
     // Generate JWT token
     const token = jwt.sign({ _id: existingUser._id }, jwtSecret, { expiresIn: '1h' });
-    res.status(200).json({ success: true, token });
+    res.status(200).json({ success: true, token: token ,userId: existingUser._id });
   } catch (error) {
     console.error('Error logging in user:', error);
     res.status(500).json({ success: false, message: 'An error occurred while logging in' });
