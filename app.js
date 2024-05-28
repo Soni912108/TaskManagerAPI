@@ -24,7 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/api/tasks", taskRoute);
 app.use("/api/users", usersRoute);
 
-// simple route
+// simple route to show the api working
 app.get("/", (req, res) => {
   res.send("Hello from Node API Server--expressApp!!");
 });
