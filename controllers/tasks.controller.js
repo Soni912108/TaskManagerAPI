@@ -1,11 +1,11 @@
 // Import only the Task model
 const { Tasks } = require("../models/tasks.model.js"); // Assuming models.js is in a folder named "models" one level above
 
-
 const getTasks = async (req, res) => {
   try {
-    const task = await Tasks.find({});
-    res.status(200).json(task);
+    const { userId } = req.params;
+    const tasks = await Tasks.find({ createdBy: userId });
+    res.status(200).json(tasks);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
