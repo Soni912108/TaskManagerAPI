@@ -29,7 +29,7 @@ app.use("/api/users/", usersRoute);
 
 // simple route
 app.get("/", (req, res) => {
-  res.send("Hello from Node API Server Updated");
+  res.send("Hello from Node API Server Updated Version");
 });
 
 // Connect to MongoDB
