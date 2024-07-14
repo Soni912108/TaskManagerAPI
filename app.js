@@ -1,10 +1,13 @@
 const express = require("express");
-const mongoose = require("mongoose");
+const cors = require('cors'); // Install cors middleware
+const http = require('http');
+const app = express();
+const server = http.createServer(app);
+const connectToMongoDB = require('./db/mongodbConnection');
+
 const taskRoute = require("./routes/task.route.js");
 const usersRoute = require("./routes/users.route.js");
-const app = express();
-require('dotenv').config();
-const cors = require('cors');
+
 
 // Apply CORS middleware with allowed origin
 app.use(cors({
@@ -22,26 +25,14 @@ app.use(express.urlencoded({ extended: false }));
 
 // routes
 app.use("/api/tasks", taskRoute);
-app.use("/api/users", usersRoute);
+app.use("/api/users/", usersRoute);
 
-// simple route to show the api working
+// simple route
 app.get("/", (req, res) => {
-  res.send("Hello from Node API Server--expressApp!!");
+  res.send("Hello from Node API Server Updated");
 });
 
-const password = process.env.PASSWORD;
-const encodedPassword = encodeURIComponent(password);
-
-// connecting to DB then running the server.
-mongoose
-  .connect(
-    `mongodb+srv://sonimailfortestuse:${encodedPassword}@backenddb.yf5ipol.mongodb.net/?retryWrites=true&w=majority&appName=BackendDB`
-  )
-  .then(() => {
-    console.log("Connected to database!");
-  })
-  .catch(() => {
-    console.log("Connection failed!");
-  });
+// Connect to MongoDB
+connectToMongoDB();
 
 module.exports = app;
