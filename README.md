@@ -67,9 +67,9 @@ The server will be running on http://localhost:3001.
 **Tasks**
 
 - GET /api/tasks/:userId  Get all tasks for specific user
-- 
+  
 - GET /api/tasks/:id  Get a tasks 
-- 
+  
 - POST /api/tasks: Create a new task (protected)
 
 - PUT /api/tasks/:id
