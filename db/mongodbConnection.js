@@ -13,7 +13,7 @@ const connectToMongoDB = async () => {
   const requiredEnvVars = ['PASSWORD', 'USER', 'DB', 'APP_NAME', 'MONGODB_URI'];
   const missingVars = requiredEnvVars.filter((envVar) => !process.env[envVar]);
   if (missingVars.length > 0) {
-    throw new Error(`Missing required environment variables: ${missingVars.join(', ')}`);
+    throw new Error('Missing required environment variables');
   }
 
   // Replace placeholders with actual values
@@ -23,19 +23,15 @@ const connectToMongoDB = async () => {
     .replace('DATABASE_PLACEHOLDER', database)
     .replace('APP_NAME_PLACEHOLDER', appName);
 
-  const sanitizedUri = uri.replace(encodedPassword, '****'); // Redact sensitive parts
-
   try {
-    console.log(`Connecting to MongoDB with URI: ${sanitizedUri}`);
     await mongoose.connect(uri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       autoIndex: false,
       serverSelectionTimeoutMS: 5000, // Timeout for unreachable servers
     });
-    console.log('Connected to MongoDB');
   } catch (error) {
-    console.error('MongoDB connection error:', error);
+    console.error('MongoDB connection error!');
   }
 };
 
