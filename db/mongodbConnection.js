@@ -2,20 +2,40 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 const connectToMongoDB = async () => {
-  const password = process.env.PASSWORD; // Access password from environment variables
-  const encodedPassword = encodeURIComponent(password); // Encode the password to handle special characters
-  const username = process.env.USERNAME; // Access username from environment variables
-  const MONGODB_URI = process.env.MONGODB_URI // Access the full URI with placeholders to replace
+  const password = process.env.PASSWORD; 
+  const encodedPassword = encodeURIComponent(password);
+  const username = process.env.USER;
+  const database = process.env.DB;
+  const appName = process.env.APP_NAME;
+  const MONGODB_URI = process.env.MONGODB_URI;
 
-    // Replace the placeholders with actual values
+  // Validate environment variables
+  const requiredEnvVars = ['PASSWORD', 'USER', 'DB', 'APP_NAME', 'MONGODB_URI'];
+  const missingVars = requiredEnvVars.filter((envVar) => !process.env[envVar]);
+  if (missingVars.length > 0) {
+    throw new Error(`Missing required environment variables: ${missingVars.join(', ')}`);
+  }
+
+  // Replace placeholders with actual values
+  const uri = MONGODB_URI
     .replace('USERNAME_PLACEHOLDER', username)
-    .replace('PASSWORD_PLACEHOLDER', encodedPassword);
+    .replace('PASSWORD_PLACEHOLDER', encodedPassword)
+    .replace('DATABASE_PLACEHOLDER', database)
+    .replace('APP_NAME_PLACEHOLDER', appName);
+
+  const sanitizedUri = uri.replace(encodedPassword, '****'); // Redact sensitive parts
 
   try {
-    await mongoose.connect(MONGODB_URI);
-    console.info('Connected to MongoDB');
+    console.log(`Connecting to MongoDB with URI: ${sanitizedUri}`);
+    await mongoose.connect(uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      autoIndex: false,
+      serverSelectionTimeoutMS: 5000, // Timeout for unreachable servers
+    });
+    console.log('Connected to MongoDB');
   } catch (error) {
-    console.error('Error connecting to MongoDB:', error);
+    console.error('MongoDB connection error:', error);
   }
 };
 
