@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require('cors'); // Install cors middleware
 const http = require('http');
 const app = express();
+
+require('dotenv').config();
 const server = http.createServer(app);
 const connectToMongoDB = require('./db/mongodbConnection');
 
@@ -11,7 +13,7 @@ const usersRoute = require("./routes/users.route.js");
 
 // Apply CORS middleware with allowed origin
 app.use(cors({
-  origin: 'https://react-app-psi-wheat.vercel.app', // Ensure this is the correct origin
+  origin: `${process.env.APP_URL}`,
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   preflightContinue: false,
   optionsSuccessStatus: 204
