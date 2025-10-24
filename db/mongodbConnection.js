@@ -25,8 +25,6 @@ const connectToMongoDB = async () => {
 
   try {
     await mongoose.connect(uri, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
       autoIndex: false,
       serverSelectionTimeoutMS: 5000, // Timeout for unreachable servers
     });
@@ -36,3 +34,4 @@ const connectToMongoDB = async () => {
 };
 
 module.exports = connectToMongoDB;
+
