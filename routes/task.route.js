@@ -6,10 +6,11 @@ const auth = require('../middleware/auth');
 
 
 router.get('/getAllTasks',auth, getTasks);
-router.get('/getOneTask/:id', auth, getTask);
-router.post('/create', auth, createTask);
+router.get('/getSingleTask/:id', auth, getTask);
+router.post('/createTask', auth, createTask);
 router.put('/updateTask/:id', auth, updateTask);
 router.patch('/updateTask/:id', auth, updateTask);
 router.delete('/deleteTask/:id', auth, deleteTask);
+
 
 module.exports = router;
