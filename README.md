@@ -9,7 +9,6 @@ Backend for a Task Manager platform, built using Node.js, Express.js, and MongoD
 - [Installation](#installation)
 - [Environment Variables](#environment-variables)
 - [Usage](#usage)
-- [Contributing](#contributing)
 - [License](#license)
 
 ## Features
@@ -77,16 +76,6 @@ The server will be running on http://localhost:3001.
 
 - DELETE /api/tasks/:id
 : Delete a task (protected)
-
-##  Contributing
-**Contributions are welcome! Please follow these steps:**
-
-Fork the repository.
-Create a new branch (git checkout -b feature-branch).
-Make your changes.
-Commit your changes (git commit -m 'Add some feature').
-Push to the branch (git push origin feature-branch).
-Open a pull request.
 
 
 ##  License
