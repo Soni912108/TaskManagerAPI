@@ -1,15 +1,17 @@
 const Users = require("../models/users.model.js");
-const jwt = require('jsonwebtoken'); // Import the jsonwebtoken library
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+
 require('dotenv').config();
-const bcrypt = require('bcrypt'); // Import bcrypt library
 const jwtSecret = process.env.JWT_SECRET;
+
 
 
 const Register = async (req, res) => {
   try {
     const { username, email, password } = req.body;
 
-    // Check for existing user with either username or email (unchanged)
+    // Check for existing user with either username or email
     const existingUser = await Users.findOne({
       $or: [
         { username },
@@ -18,7 +20,7 @@ const Register = async (req, res) => {
     });
 
     if (existingUser) {
-      // Determine which field caused the conflict (unchanged)
+      // check if username/email is already present
       const conflictField = existingUser.username === username ? 'Username' : 'Email';
       const message = `${conflictField} already in use!`;
       return res.status(401).json({ success: false, message });
@@ -29,7 +31,7 @@ const Register = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     const user = await Users.create({ username, email, password: hashedPassword });
-    // Generate a JWT token with user ID and other relevant data (unchanged)
+    // Generate a JWT token with user ID and other relevant data
     const token = jwt.sign({ _id: user._id }, jwtSecret, { expiresIn: '1h' });
     res.status(200).json({ success: true, token: token ,userId: user._id  });
   } catch (error) {
@@ -66,3 +68,4 @@ const Login = async (req, res) => {
 };
 
 module.exports = {Register,Login};
+
