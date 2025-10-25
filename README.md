@@ -8,8 +8,6 @@ Backend for a Task Manager platform, built using Node.js, Express.js, and MongoD
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Environment Variables](#environment-variables)
-- [Usage](#usage)
-- [License](#license)
 
 ## Features
 
@@ -29,14 +27,21 @@ Before you begin, ensure you have met the following requirements:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/Soni912108/expressApp.git
-   cd blog-api
-  
+   git clone https://github.com/Soni912108/TaskManagerAPI.git
+
+
 2. Install the dependencies:
 
    ```bash
     npm install
-   
+
+<br>
+To start the server in development mode, run:
+  
+         npm run dev
+
+The server will be running on http://localhost:3001.
+
 ##  Environment Variables
 
     
@@ -46,14 +51,6 @@ Before you begin, ensure you have met the following requirements:
          SECRET=your_jwt_secret
 
 Replace your_mongodb_password and your_jwt_secret with your actual MongoDB password and JWT secret.
-
-## Usage 
-
-To start the server in development mode, run:
-
-      npm run dev
-
-The server will be running on http://localhost:3001.
 
 
 ## Endpoints
@@ -76,10 +73,4 @@ The server will be running on http://localhost:3001.
 
 - DELETE /api/tasks/:id
 : Delete a task (protected)
-
-
-##  License
-**This project is licensed under the MIT License. See the LICENSE file for more details.**
-
-
 
